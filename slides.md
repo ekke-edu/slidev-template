@@ -1,5 +1,5 @@
 ---
-title: {{TITLE_YAML}}
+title: "Szakdolgozati védés"
 routerMode: hash
 ---
 
@@ -7,15 +7,15 @@ routerMode: hash
 <div class="absolute inset-0 flex flex-col font-sans">
   <div class="w-full h-[55%] bg-[#1a2a5a] flex items-start justify-center pt-24 relative">
     <h1 class="text-6xl font-bold text-white tracking-wide z-10 m-0 border-none text-center px-12">
-      <strong>{{TITLE}}</strong>
+      <strong>Szakdolgozati védés</strong>
     </h1>
   </div>
   <div class="w-full h-[45%] bg-white flex flex-col items-center justify-start pt-5 relative text-[#1a2a5a]">
-    <p class="text-xl opacity-90 mt-10">{{INSTITUTION}}</p>
-    <p class="text-2xl font-bold mt-2 mb-1 text-center px-10">{{PROGRAM}}</p>
-    <p class="text-3xl font-bold mt-2 mb-1">{{PRESENTER}}</p>
-    {{IDENTIFIER_BLOCK}}
-    <p class="text-xl mt-4 opacity-80 m-0 font-bold">{{CITY}}, {{DATE}}</p>
+    <p class="text-xl opacity-90 mt-10">[Intézmény neve]</p>
+    <p class="text-2xl font-bold mt-2 mb-1 text-center px-10">[Szak / képzés]</p>
+    <p class="text-3xl font-bold mt-2 mb-1">[Hallgató neve]</p>
+    <p class="text-lg mt-1">[Neptun-kód / azonosító – opcionális]</p>
+    <p class="text-xl mt-4 opacity-80 m-0 font-bold">[Város], [Dátum]</p>
   </div>
   <div class="absolute top-[53.3%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20 w-full">
     <img src="/assets/cover.svg" class="h-24" alt="Intézményi embléma" />
@@ -227,6 +227,6 @@ Köszönöm a figyelmet!
   <div class="w-24 border-t-4 border-[#c8a048] mb-8"></div>
   <h1 class="text-5xl font-bold text-[#1a2a5a] mb-6">Köszönöm a figyelmet!</h1>
   <p class="text-2xl opacity-85 mb-8">Kérdések és észrevételek</p>
-  <div class="text-lg font-semibold">{{PRESENTER}}</div>
-  <div class="text-sm opacity-70 mt-2">{{INSTITUTION}} · {{DATE}}</div>
+  <div class="text-lg font-semibold">[Hallgató neve]</div>
+  <div class="text-sm opacity-70 mt-2">[Intézmény neve] · [Dátum]</div>
 </div>

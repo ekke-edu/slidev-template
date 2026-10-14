@@ -1,47 +1,45 @@
-# EKKE Slidev template
+# EKKE Slidev presentation template
 
-Interaktív parancssori generátor Slidev-alapú EKKE prezentációkhoz. A meglévő `portfolio-vedes-b9xgep` projekt vizuális irányából indul ki: sötétkék–arany színvilág, saját címlap, egyedi fejléc és vízjel. A szöveges tartalom általános védési folyamatra van előkészítve, nem másolja át a korábbi személyes diákat.
+Reusable Hungarian presentation starter for thesis defenses and academic talks, built with [Slidev](https://sli.dev/).
 
-## Használat közvetlenül GitHubról
+## Create your presentation
 
-Miután a repository felkerült GitHubra, a CLI helyi telepítés nélkül futtatható:
+1. Select **Use this template** and create a repository under your account or organization.
+2. Clone your new repository and install dependencies:
 
-```bash
-npx --yes --package=github:ekke-edu/slidev-template create-slidev-vedes
+   ```sh
+   pnpm install
+   pnpm dev
+   ```
+
+3. Edit `slides.md`: replace the bracketed prompts with your title, institution, programme, name, date, and presentation content.
+4. Replace the sample graphics in `public/assets/` with artwork you are allowed to use. Keep the filenames `cover.svg`, `header.svg`, and `watermark.svg`, or update the references in the slides and layout.
+
+The template contains no project-specific title or generated metadata. Once created, your repository is independent and can be edited normally.
+
+## Commands
+
+- `pnpm dev` starts the presentation locally.
+- `pnpm build` creates a production build in `dist/`.
+- `pnpm export` exports the slides to PDF.
+
+Use Node.js 22.12 or newer and pnpm 11. Install the dependencies with the committed lockfile:
+
+```sh
+pnpm install --frozen-lockfile
 ```
 
-A parancs bekéri a projektmappát, a prezentáció címét, a nevet, az intézményt, annak rövid nevét, a képzést, az opcionális azonosítót, a helyszínt és a dátumot. Ezután létrehozza a mappát, beleírja az adatokat a sablonba, és megjeleníti a következő parancsokat.
+## GitHub Pages
 
-```bash
-pnpm install
-pnpm dev
-```
+The included workflow builds and deploys the presentation when changes are pushed to `main`. In the repository settings, choose **Settings → Pages → Build and deployment → Source → GitHub Actions**. The build automatically uses the repository name as its Pages base path and keeps Slidev hash navigation working from that subpath.
 
-A generátor soha nem ír felül már létező mappát.
+To run the deployment manually, use **Actions → Build and deploy Slidev to GitHub Pages → Run workflow**.
 
-## Használat npm csomagként
+## Customize the layout
 
-Ha a projektet publikálod az npm registrybe, telepítés nélkül így is használható:
+- Shared header and watermark: `layouts/default.vue`
+- Colors and title slide: `slides.md`
+- SVG artwork: `public/assets/`
+- Pages deployment: `.github/workflows/deploy.yml`
 
-```bash
-npm create slidev-vedes@latest
-```
-
-## Fejlesztés és teszt
-
-Node.js 20 vagy újabb verzió szükséges.
-
-```bash
-npm test
-npm run create
-```
-
-A sablon fájljai a `template/` mappában találhatók, a CLI a `bin/create.mjs` fájlban van. A generált projekt a saját `slides.md` fájlját szabadon szerkesztheti, a sablonfrissítések nem írják felül a már legenerált prezentációkat.
-
-## Stílus testreszabása
-
-Az alapszínek: `#1a2a5a` (sötétkék), `#c8a048` (arany), fehér. A generáláskor megadott intézménynév és rövidítés az SVG fájlokba is bekerül. Hivatalos intézményi logó esetén cseréld le az `assets/header.svg`, `assets/cover.svg` és `assets/watermark.svg` fájlokat, figyelembe véve a logó felhasználási feltételeit.
-
-## Megjegyzés
-
-A repository a prezentációs vázat és a CLI-t tartalmazza. A tényleges szakmai tartalmat a prezentáció készítőjének kell megírnia és ellenőriznie.
+Contributions to improve the starter are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
