@@ -1,45 +1,55 @@
-# EKKE Slidev presentation template
+# EKKE prezentációs sablon
 
-Reusable Hungarian presentation starter for thesis defenses and academic talks, built with [Slidev](https://sli.dev/).
+Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak készült. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
 
-## Create your presentation
+## Saját prezentáció készítése
 
-1. Select **Use this template** and create a repository under your account or organization.
-2. Clone your new repository and install dependencies:
+### 1. Hozz létre egy saját példányt
 
-   ```sh
-   pnpm install
-   pnpm dev
-   ```
+Nyisd meg a GitHub-repót, kattints a **Use this template** gombra, majd válaszd a **Create a new repository** lehetőséget. Így a saját repód a sablon fájljaival indul. Ezután klónozd le a gépedre.
 
-3. Edit `slides.md`: replace the bracketed prompts with your title, institution, programme, name, date, and presentation content.
-4. Replace the sample graphics in `public/assets/` with artwork you are allowed to use. Keep the filenames `cover.svg`, `header.svg`, and `watermark.svg`, or update the references in the slides and layout.
+### 2. Indítsd el a prezentációt
 
-The template contains no project-specific title or generated metadata. Once created, your repository is independent and can be edited normally.
-
-## Commands
-
-- `pnpm dev` starts the presentation locally.
-- `pnpm build` creates a production build in `dist/`.
-- `pnpm export` exports the slides to PDF.
-
-Use Node.js 22.12 or newer and pnpm 11. Install the dependencies with the committed lockfile:
+Telepítsd a [Node.js 22.12 vagy újabb verzióját](https://nodejs.org/) és a pnpm 11-et. A repó mappájában futtasd:
 
 ```sh
 pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-## GitHub Pages
+A terminálban megjelenő helyi címet nyisd meg a böngészőben. A `pnpm dev` parancsot futtatva a szerkesztések után a bemutató automatikusan frissül.
 
-The included workflow builds and deploys the presentation when changes are pushed to `main`. In the repository settings, choose **Settings → Pages → Build and deployment → Source → GitHub Actions**. The build automatically uses the repository name as its Pages base path and keeps Slidev hash navigation working from that subpath.
+### 3. Cseréld ki a mintatartalmat
 
-To run the deployment manually, use **Actions → Build and deploy Slidev to GitHub Pages → Run workflow**.
+A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlap mintaszövegeit a saját adataidra, majd írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
 
-## Customize the layout
+Ha még nem használtad a Slidev-et, a [rövid útmutató](https://sli.dev/guide/) segít a Markdown, a kódblokkok, a képek és az elrendezések használatában.
 
-- Shared header and watermark: `layouts/default.vue`
-- Colors and title slide: `slides.md`
-- SVG artwork: `public/assets/`
-- Pages deployment: `.github/workflows/deploy.yml`
+### 4. Készíts PDF-et vagy tedd közzé
 
-Contributions to improve the starter are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+PDF-export:
+
+```sh
+pnpm export
+```
+
+GitHub Pages-közzétételhez a saját repódban nyisd meg a **Settings → Pages** oldalt, és a **Build and deployment → Source** beállításnál válaszd a **GitHub Actions** lehetőséget. Ezután a `main` ágra feltöltött módosítások automatikusan elindítják a közzétételt. Az elkészült oldal címe a repó **Settings → Pages** részén jelenik meg.
+
+## Mit hol tudsz átírni?
+
+- **Diák tartalma és címlap:** `slides.md`
+- **Közös fejléc és vízjel:** `layouts/default.vue`
+- **EKKE-logók:** `public/assets/ekke-logo.jpg` és `public/assets/ekke-logo-inverse.jpg`
+- **GitHub Pages munkafolyamat:** `.github/workflows/deploy.yml`
+
+Az EKKE-logók az egyetem [hivatalos logóoldaláról](https://uni-eszterhazy.hu/kommunikacio/logok) származnak. Ha a bemutatót más intézményhez vagy saját, nem EKKE-s célra használod, cseréld le a logókat, és csak olyan képet vagy emblémát tegyél be, amelynek használatára jogosult vagy.
+
+## Gyakran használt parancsok
+
+| Parancs | Mire való? |
+| --- | --- |
+| `pnpm dev` | Helyi bemutató és szerkesztés |
+| `pnpm build` | A közzétehető változat elkészítése a `dist/` mappába |
+| `pnpm export` | PDF-export |
+
+Ha hibába ütközöl, először ellenőrizd, hogy a Node.js és a pnpm megfelelő verziója van-e telepítve, majd futtasd újra a `pnpm install --frozen-lockfile` parancsot. Javaslatokat és javításokat szívesen fogadunk; a közreműködéshez lásd a [CONTRIBUTING.md](CONTRIBUTING.md) fájlt.

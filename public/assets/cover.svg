@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" role="img" aria-labelledby="title">
-  <title id="title">INTÉZMÉNY embléma</title>
-  <g transform="translate(65 4)">
-    <path d="M55 4 L101 18 L101 67 Q82 96 55 111 Q28 96 9 67 L9 18 Z" fill="#1a2a5a" stroke="#c8a048" stroke-width="5"/>
-    <path d="M55 20 L78 33 L78 62 L55 80 L32 62 L32 33 Z" fill="none" stroke="#ffffff" stroke-width="4"/>
-    <path d="M40 49 H70 M55 34 V65" stroke="#c8a048" stroke-width="5"/>
-  </g>
-  <text x="120" y="138" text-anchor="middle" fill="#1a2a5a" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="1">INTÉZMÉNY</text>
-</svg>

@@ -18,7 +18,9 @@ routerMode: hash
     <p class="text-xl mt-4 opacity-80 m-0 font-bold">[Város], [Dátum]</p>
   </div>
   <div class="absolute top-[53.3%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20 w-full">
-    <img src="/assets/cover.svg" class="h-24" alt="Intézményi embléma" />
+    <div class="w-[28rem] max-w-[80%] h-36 overflow-hidden">
+      <img src="/assets/ekke-logo.jpg" class="w-full h-full object-cover" alt="Eszterházy Károly Katolikus Egyetem" />
+    </div>
     <div class="w-[60%] border-b-2 border-white my-3"></div>
   </div>
 </div>
