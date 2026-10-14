@@ -1,6 +1,6 @@
 # EKKE prezentációs sablon
 
-Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak készült. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
+Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és oktatóinak készült. Használhatod kurzusbemutatóhoz, beadandóhoz, előadáshoz vagy akár szakdolgozati védéshez is. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
 
 ## Saját prezentáció készítése
 
@@ -21,7 +21,7 @@ A terminálban megjelenő helyi címet nyisd meg a böngészőben. A `pnpm dev` 
 
 ### 3. Cseréld ki a mintatartalmat
 
-A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlap mintaszövegeit a saját adataidra, majd írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
+A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlapon a prezentáció címét, a kurzus vagy alkalom nevét, az előadó adatait és a dátumot. A mezők szabadon alakíthatók: például szakdolgozati védéshez felveheted a szakot, témavezetőt vagy más, ott szükséges adatot; kurzusbemutatónál elhagyhatod a nem releváns mezőket. Ezután írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
 
 Ha még nem használtad a Slidev-et, a [rövid útmutató](https://sli.dev/guide/) segít a Markdown, a kódblokkok, a képek és az elrendezések használatában.
 
@@ -39,7 +39,7 @@ GitHub Pages-közzétételhez a saját repódban nyisd meg a **Settings → Page
 
 - **Diák tartalma és címlap:** `slides.md`
 - **Közös fejléc és vízjel:** `layouts/default.vue`
-- **EKKE-logók:** `public/assets/ekke-logo.jpg` és `public/assets/ekke-logo-inverse.jpg`
+- **Átlátszó hátterű EKKE-logók:** `public/assets/ekke-logo-cover.png` (címlap, a kék-fehér határhoz igazított változat), `public/assets/ekke-logo.png` (vízjel) és `public/assets/ekke-logo-inverse.png` (sötét fejléc)
 - **GitHub Pages munkafolyamat:** `.github/workflows/deploy.yml`
 
 Az EKKE-logók az egyetem [hivatalos logóoldaláról](https://uni-eszterhazy.hu/kommunikacio/logok) származnak. Ha a bemutatót más intézményhez vagy saját, nem EKKE-s célra használod, cseréld le a logókat, és csak olyan képet vagy emblémát tegyél be, amelynek használatára jogosult vagy.

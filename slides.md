@@ -1,47 +1,43 @@
 ---
-title: "Szakdolgozati védés"
+title: "A prezentáció címe"
 routerMode: hash
 ---
 
-<!-- Címlap: az adatokat a létrehozáskor adtad meg; a dizájn a saját slides.md fájlban módosítható. -->
+<!-- Címlap: írd át az alábbi mintaszövegeket a saját prezentációdhoz. -->
 <div class="absolute inset-0 flex flex-col font-sans">
-  <div class="w-full h-[55%] bg-[#1a2a5a] flex items-start justify-center pt-24 relative">
+  <div class="w-full h-1/2 bg-[#1a2a5a] flex items-start justify-center pt-24 relative">
     <h1 class="text-6xl font-bold text-white tracking-wide z-10 m-0 border-none text-center px-12">
-      <strong>Szakdolgozati védés</strong>
+      <strong>A prezentáció címe</strong>
     </h1>
   </div>
-  <div class="w-full h-[45%] bg-white flex flex-col items-center justify-start pt-5 relative text-[#1a2a5a]">
-    <p class="text-xl opacity-90 mt-10">[Intézmény neve]</p>
-    <p class="text-2xl font-bold mt-2 mb-1 text-center px-10">[Szak / képzés]</p>
-    <p class="text-3xl font-bold mt-2 mb-1">[Hallgató neve]</p>
-    <p class="text-lg mt-1">[Neptun-kód / azonosító – opcionális]</p>
-    <p class="text-xl mt-4 opacity-80 m-0 font-bold">[Város], [Dátum]</p>
+  <div class="w-full h-1/2 bg-white flex flex-col items-center justify-start pt-24 relative text-[#1a2a5a]">
+    <p class="text-lg opacity-90 mt-8">[Kurzus, tantárgy vagy alkalom – opcionális]</p>
+    <p class="text-3xl font-bold mt-3 mb-1 text-center px-10">[Előadó neve]</p>
+    <p class="text-lg mt-2">[Szak / tanszék / szervezeti egység – opcionális]</p>
+    <p class="text-xl mt-4 opacity-80 m-0 font-bold">[Dátum]</p>
   </div>
-  <div class="absolute top-[53.3%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20 w-full">
-    <div class="w-[28rem] max-w-[80%] h-36 overflow-hidden">
-      <img src="/assets/ekke-logo.jpg" class="w-full h-full object-cover" alt="Eszterházy Károly Katolikus Egyetem" />
-    </div>
-    <div class="w-[60%] border-b-2 border-white my-3"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center z-20 w-full pointer-events-none">
+    <img src="/assets/ekke-logo-cover.png" class="w-[34rem] max-w-[76%] h-auto object-contain" alt="Eszterházy Károly Katolikus Egyetem" />
   </div>
 </div>
 
 ---
 
 ::header::
-Kiindulópont és probléma
+Háttér és kiindulópont
 ::default::
 
 <div class="grid grid-cols-2 gap-8 items-center h-full">
   <div class="space-y-5">
     <h2 class="text-2xl font-bold">Miért ezzel a témával foglalkozom?</h2>
-    <p class="text-lg opacity-85">Fogalmazd meg röviden a megoldandó problémát, a gyakorlati igényt vagy a kutatási kérdést.</p>
+    <p class="text-lg opacity-85">Mutasd be röviden a témát, a gyakorlati igényt vagy a kérdést, amelyre a prezentáció választ ad.</p>
     <div class="border-l-4 border-[#c8a048] pl-4 py-2">
       <p class="text-xl font-semibold">Fő kérdés</p>
-      <p class="opacity-80">[A védés központi kérdése egy mondatban]</p>
+      <p class="opacity-80">[A téma központi kérdése vagy üzenete egy mondatban]</p>
     </div>
   </div>
   <div class="rounded-xl border border-[#1a2a5a]/15 bg-[#1a2a5a]/5 p-8">
-    <div class="text-sm uppercase tracking-widest text-[#c8a048] font-bold mb-3">Kiinduló helyzet</div>
+    <div class="text-sm uppercase tracking-widest text-[#c8a048] font-bold mb-3">Háttér</div>
     <ul class="list-disc pl-5 space-y-3 text-lg">
       <li>[Első fontos körülmény]</li>
       <li>[Második fontos körülmény]</li>
@@ -53,11 +49,11 @@ Kiindulópont és probléma
 ---
 
 ::header::
-Célok és követelmények
+Célok és szempontok
 ::default::
 
 <div class="space-y-5 mt-4">
-  <p class="text-xl">A munka célja, hogy egyértelműen meghatározott elvárások mentén választ adjon a felvetett problémára.</p>
+  <p class="text-xl">Mutasd be, mit szeretnél elérni, és milyen szempontok alapján tekinted sikeresnek a bemutatott munkát vagy témát.</p>
   <div class="grid grid-cols-3 gap-5 mt-8">
     <div class="p-5 rounded-xl border-t-4 border-[#c8a048] bg-[#1a2a5a]/5">
       <div class="text-4xl font-bold text-[#1a2a5a] mb-3">01</div>
@@ -85,8 +81,8 @@ Megközelítés és módszertan
 
 <div class="grid grid-cols-2 gap-8 h-full items-center">
   <div class="space-y-4">
-    <h2 class="text-2xl font-bold">Hogyan jutottam el a megoldásig?</h2>
-    <p class="opacity-85">Írd le a legfontosabb lépéseket olyan sorrendben, ahogy ténylegesen végrehajtottad őket.</p>
+    <h2 class="text-2xl font-bold">Hogyan épül fel a téma?</h2>
+    <p class="opacity-85">Írd le a legfontosabb lépéseket vagy gondolatokat olyan sorrendben, ahogy a közönségnek érdemes megismernie őket.</p>
     <ul class="space-y-3 text-lg">
       <li class="flex gap-3 items-start"><span class="text-[#c8a048] font-bold">01</span><span>[Feltárás / kutatás / igényfelmérés]</span></li>
       <li class="flex gap-3 items-start"><span class="text-[#c8a048] font-bold">02</span><span>[Tervezés és alternatívák]</span></li>
@@ -109,7 +105,7 @@ Tervezés és architektúra
 ::default::
 
 <div class="space-y-6 mt-4">
-  <p class="text-lg opacity-85">Itt mutasd be a megoldás felépítését, a fontosabb döntéseket és azt, miért ezek mellett döntöttél.</p>
+  <p class="text-lg opacity-85">Itt mutasd be a téma vagy projekt felépítését, a fontosabb összefüggéseket és a kapcsolódó döntéseket.</p>
   <div class="grid grid-cols-3 gap-4 items-stretch">
     <div class="rounded-lg bg-[#1a2a5a] text-white p-5 flex flex-col justify-center min-h-40">
       <h3 class="font-bold text-lg mb-2">[Komponens A]</h3><p class="text-sm opacity-85">[Feladat / felelősség]</p>
@@ -132,7 +128,7 @@ Megvalósítás
 
 <div class="grid grid-cols-2 gap-8 items-start mt-4">
   <div class="space-y-4">
-    <h2 class="text-2xl font-bold">A legfontosabb megoldások</h2>
+    <h2 class="text-2xl font-bold">A legfontosabb gondolatok</h2>
     <ul class="space-y-3 text-lg">
       <li class="flex gap-3"><span class="text-[#c8a048]">●</span><span>[Első lényeges funkció vagy munkafázis]</span></li>
       <li class="flex gap-3"><span class="text-[#c8a048]">●</span><span>[Második lényeges funkció vagy munkafázis]</span></li>
@@ -153,7 +149,7 @@ Tesztelés és értékelés
 ::default::
 
 <div class="space-y-6 mt-4">
-  <p class="text-lg opacity-85">Mutasd meg, milyen bizonyíték támasztja alá, hogy a megoldás teljesíti a célokat.</p>
+  <p class="text-lg opacity-85">Mutasd meg, milyen példák, adatok vagy tapasztalatok támasztják alá a fő állításaidat.</p>
   <div class="grid grid-cols-3 gap-5">
     <div class="border border-[#1a2a5a]/15 rounded-xl p-5">
       <div class="text-sm font-bold text-[#c8a048] uppercase tracking-wider">01 · Ellenőrzés</div>
@@ -190,7 +186,7 @@ Eredmények és tanulságok
   </div>
   <div class="bg-[#1a2a5a] text-white rounded-2xl p-7">
     <div class="text-[#c8a048] font-bold uppercase tracking-widest text-sm">Reflexió</div>
-    <p class="text-2xl leading-relaxed mt-4">[Mi volt a legfontosabb felismerésed a munka során?]</p>
+    <p class="text-2xl leading-relaxed mt-4">[Mi volt a legfontosabb felismerésed a téma feldolgozása közben?]</p>
     <p class="text-sm opacity-75 mt-5">[Miben változott a gondolkodásod vagy a gyakorlatod?]</p>
   </div>
 </div>
@@ -229,6 +225,6 @@ Köszönöm a figyelmet!
   <div class="w-24 border-t-4 border-[#c8a048] mb-8"></div>
   <h1 class="text-5xl font-bold text-[#1a2a5a] mb-6">Köszönöm a figyelmet!</h1>
   <p class="text-2xl opacity-85 mb-8">Kérdések és észrevételek</p>
-  <div class="text-lg font-semibold">[Hallgató neve]</div>
-  <div class="text-sm opacity-70 mt-2">[Intézmény neve] · [Dátum]</div>
+  <div class="text-lg font-semibold">[Előadó neve]</div>
+  <div class="text-sm opacity-70 mt-2">[Kurzus / szervezeti egység – opcionális] · [Dátum]</div>
 </div>
