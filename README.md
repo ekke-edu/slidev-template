@@ -1,6 +1,6 @@
-# create-slidev-vedes
+# EKKE Slidev template
 
-Interaktív parancssori generátor Slidev-alapú védési prezentációkhoz. A meglévő `portfolio-vedes-b9xgep` projekt vizuális irányából indul ki: sötétkék–arany színvilág, saját címlap, egyedi fejléc és vízjel. A szöveges tartalom általános védési folyamatra van előkészítve, nem másolja át a korábbi személyes diákat.
+Interaktív parancssori generátor Slidev-alapú EKKE prezentációkhoz. A meglévő `portfolio-vedes-b9xgep` projekt vizuális irányából indul ki: sötétkék–arany színvilág, saját címlap, egyedi fejléc és vízjel. A szöveges tartalom általános védési folyamatra van előkészítve, nem másolja át a korábbi személyes diákat.
 
 ## Használat közvetlenül GitHubról
 
@@ -13,7 +13,6 @@ npx --yes --package=github:ekke-edu/slidev-template create-slidev-vedes
 A parancs bekéri a projektmappát, a prezentáció címét, a nevet, az intézményt, annak rövid nevét, a képzést, az opcionális azonosítót, a helyszínt és a dátumot. Ezután létrehozza a mappát, beleírja az adatokat a sablonba, és megjeleníti a következő parancsokat.
 
 ```bash
-cd vedes-prezentacio
 pnpm install
 pnpm dev
 ```
