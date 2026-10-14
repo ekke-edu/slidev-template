@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="{{INSTITUTION_SHORT}} vízjel">
+  <g fill="none" stroke="#1a2a5a" stroke-width="14" opacity="0.22">
+    <circle cx="300" cy="300" r="220"/>
+    <circle cx="300" cy="300" r="194"/>
+    <path d="M300 118 L430 165 L430 310 Q380 420 300 470 Q220 420 170 310 L170 165 Z"/>
+    <path d="M235 245 L300 205 L365 245 L365 325 L300 375 L235 325 Z"/>
+    <path d="M250 285 H350 M300 235 V335"/>
+  </g>
+  <text x="300" y="530" text-anchor="middle" fill="#1a2a5a" opacity="0.22" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="3">{{INSTITUTION_SHORT}}</text>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "name": "create-slidev-vedes",
+  "version": "0.1.0",
+  "description": "Interaktív CLI Slidev-alapú védési prezentációk indításához, EKKE ihlette stílussal.",
+  "type": "module",
+  "bin": {
+    "create-slidev-vedes": "./bin/create.mjs"
+  },
+  "files": [
+    "bin/",
+    "template/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "create": "node ./bin/create.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "slidev",
+    "presentation",
+    "thesis-defense",
+    "cli",
+    "template"
+  ],
+  "license": "MIT"
+}
