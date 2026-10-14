@@ -1,47 +1,55 @@
-# EKKE Slidev template
+# EKKE prezentációs sablon
 
-Interaktív parancssori generátor Slidev-alapú EKKE prezentációkhoz. A meglévő `portfolio-vedes-b9xgep` projekt vizuális irányából indul ki: sötétkék–arany színvilág, saját címlap, egyedi fejléc és vízjel. A szöveges tartalom általános védési folyamatra van előkészítve, nem másolja át a korábbi személyes diákat.
+Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és oktatóinak készült. Használhatod kurzusbemutatóhoz, beadandóhoz, előadáshoz vagy akár szakdolgozati védéshez is. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
 
-## Használat közvetlenül GitHubról
+## Saját prezentáció készítése
 
-Miután a repository felkerült GitHubra, a CLI helyi telepítés nélkül futtatható:
+### 1. Hozz létre egy saját példányt
 
-```bash
-npx --yes --package=github:ekke-edu/slidev-template create-slidev-vedes
-```
+Nyisd meg a GitHub-repót, kattints a **Use this template** gombra, majd válaszd a **Create a new repository** lehetőséget. Így a saját repód a sablon fájljaival indul. Ezután klónozd le a gépedre.
 
-A parancs bekéri a projektmappát, a prezentáció címét, a nevet, az intézményt, annak rövid nevét, a képzést, az opcionális azonosítót, a helyszínt és a dátumot. Ezután létrehozza a mappát, beleírja az adatokat a sablonba, és megjeleníti a következő parancsokat.
+### 2. Indítsd el a prezentációt
 
-```bash
-pnpm install
+Telepítsd a [Node.js 22.12 vagy újabb verzióját](https://nodejs.org/) és a pnpm 11-et. A repó mappájában futtasd:
+
+```sh
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-A generátor soha nem ír felül már létező mappát.
+A terminálban megjelenő helyi címet nyisd meg a böngészőben. A `pnpm dev` parancsot futtatva a szerkesztések után a bemutató automatikusan frissül.
 
-## Használat npm csomagként
+### 3. Cseréld ki a mintatartalmat
 
-Ha a projektet publikálod az npm registrybe, telepítés nélkül így is használható:
+A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlapon a prezentáció címét, a kurzus vagy alkalom nevét, az előadó adatait és a dátumot. A mezők szabadon alakíthatók: például szakdolgozati védéshez felveheted a szakot, témavezetőt vagy más, ott szükséges adatot; kurzusbemutatónál elhagyhatod a nem releváns mezőket. Ezután írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
 
-```bash
-npm create slidev-vedes@latest
+Ha még nem használtad a Slidev-et, a [rövid útmutató](https://sli.dev/guide/) segít a Markdown, a kódblokkok, a képek és az elrendezések használatában.
+
+### 4. Készíts PDF-et vagy tedd közzé
+
+PDF-export:
+
+```sh
+pnpm export
 ```
 
-## Fejlesztés és teszt
+GitHub Pages-közzétételhez a saját repódban nyisd meg a **Settings → Pages** oldalt, és a **Build and deployment → Source** beállításnál válaszd a **GitHub Actions** lehetőséget. Ezután a `main` ágra feltöltött módosítások automatikusan elindítják a közzétételt. Az elkészült oldal címe a repó **Settings → Pages** részén jelenik meg.
 
-Node.js 20 vagy újabb verzió szükséges.
+## Mit hol tudsz átírni?
 
-```bash
-npm test
-npm run create
-```
+- **Diák tartalma és címlap:** `slides.md`
+- **Közös fejléc és vízjel:** `layouts/default.vue`
+- **Átlátszó hátterű EKKE-logók:** `public/assets/ekke-logo-cover.png` (címlap, a kék-fehér határhoz igazított változat), `public/assets/ekke-logo.png` (vízjel) és `public/assets/ekke-logo-inverse.png` (sötét fejléc)
+- **GitHub Pages munkafolyamat:** `.github/workflows/deploy.yml`
 
-A sablon fájljai a `template/` mappában találhatók, a CLI a `bin/create.mjs` fájlban van. A generált projekt a saját `slides.md` fájlját szabadon szerkesztheti, a sablonfrissítések nem írják felül a már legenerált prezentációkat.
+Az EKKE-logók az egyetem [hivatalos logóoldaláról](https://uni-eszterhazy.hu/kommunikacio/logok) származnak. Ha a bemutatót más intézményhez vagy saját, nem EKKE-s célra használod, cseréld le a logókat, és csak olyan képet vagy emblémát tegyél be, amelynek használatára jogosult vagy.
 
-## Stílus testreszabása
+## Gyakran használt parancsok
 
-Az alapszínek: `#1a2a5a` (sötétkék), `#c8a048` (arany), fehér. A generáláskor megadott intézménynév és rövidítés az SVG fájlokba is bekerül. Hivatalos intézményi logó esetén cseréld le az `assets/header.svg`, `assets/cover.svg` és `assets/watermark.svg` fájlokat, figyelembe véve a logó felhasználási feltételeit.
+| Parancs | Mire való? |
+| --- | --- |
+| `pnpm dev` | Helyi bemutató és szerkesztés |
+| `pnpm build` | A közzétehető változat elkészítése a `dist/` mappába |
+| `pnpm export` | PDF-export |
 
-## Megjegyzés
-
-A repository a prezentációs vázat és a CLI-t tartalmazza. A tényleges szakmai tartalmat a prezentáció készítőjének kell megírnia és ellenőriznie.
+Ha hibába ütközöl, először ellenőrizd, hogy a Node.js és a pnpm megfelelő verziója van-e telepítve, majd futtasd újra a `pnpm install --frozen-lockfile` parancsot. Javaslatokat és javításokat szívesen fogadunk; a közreműködéshez lásd a [CONTRIBUTING.md](CONTRIBUTING.md) fájlt.

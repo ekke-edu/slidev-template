@@ -17,21 +17,23 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAGES: 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Enable pnpm
-        run: corepack enable
+          node-version: 24
+          cache: pnpm
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Build presentation
-        run: pnpm build
+        shell: bash
+        run: pnpm build --base "/${GITHUB_REPOSITORY#*/}/"
       - name: Add .nojekyll
         run: touch dist/.nojekyll
       - name: Upload Pages artifact
