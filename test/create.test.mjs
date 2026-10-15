@@ -53,7 +53,11 @@ test('folder validation blocks path traversal and Windows reserved names', () =>
 });
 
 test('CLI creates a personalized Slidev project with transparent logos and a matching package manifest', async (t) => {
-  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slidev-'));
+  const generatorManifest = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
+  assert.equal(generatorManifest.name, 'create-ekke-slides');
+  assert.deepEqual(generatorManifest.bin, { 'create-ekke-slides': './bin/create.mjs' });
+
+  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-'));
   t.after(() => rm(workingDir, { recursive: true, force: true }));
 
   const result = await runCli(workingDir, ['Árvíztűrő-előadás'], [
@@ -93,7 +97,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
 });
 
 test('CLI refuses to overwrite an existing project directory', async (t) => {
-  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slidev-existing-'));
+  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-existing-'));
   t.after(() => rm(workingDir, { recursive: true, force: true }));
   const targetDir = join(workingDir, 'already-there');
   await mkdir(targetDir);
