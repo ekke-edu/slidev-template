@@ -30,6 +30,16 @@ Ha a csomag később megjelenik az npm-en, ugyanez a generátor rövidebben is i
 npm create ekke-slidev@latest -- adatbazis-eloadas
 ```
 
+Az első npm-kiadás verziója `1.1.0` lesz, az `1.0.0` tag utáni minor kiadásként. A további kiadásoknál a Conventional Commits szerint írd a commitüzeneteket (`feat:` új funkció, `fix:` javítás, `docs:` dokumentáció, a kompatibilitást törő változást pedig `BREAKING CHANGE:` jelölje). A verziót és a megfelelő, `1.1.0` formátumú Git taget pnpm-mel emelheted:
+
+```sh
+pnpm release:patch
+pnpm release:minor
+pnpm release:major
+```
+
+Ezek a parancsok frissítik a `package.json` verzióját, majd Conventional Commit formátumú kiadási commitot és verziótaget készítenek. A parancs előtt commitold a munkádat, mert pnpm megköveteli a tiszta munkakönyvtárat. A kiadási commitot és taget ezután pushold, majd publikáld az npm-csomagot.
+
 ## Saját prezentáció készítése
 
 ### 1. Hozz létre egy saját példányt

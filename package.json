@@ -1,6 +1,6 @@
 {
   "name": "create-ekke-slidev",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "CLI to create an EKKE-branded Slidev presentation",
   "type": "module",
   "bin": {
@@ -39,7 +39,10 @@
     "build": "slidev build",
     "export": "slidev export",
     "create": "node ./bin/create.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "release:patch": "pnpm version patch --tag-version-prefix \"\" --message \"chore(release): v%s\"",
+    "release:minor": "pnpm version minor --tag-version-prefix \"\" --message \"chore(release): v%s\"",
+    "release:major": "pnpm version major --tag-version-prefix \"\" --message \"chore(release): v%s\""
   },
   "devDependencies": {
     "@slidev/cli": "53.0.0",
