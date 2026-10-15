@@ -64,10 +64,10 @@ async function assertDestinationAvailable(targetDir) {
 
 function personalizeSlides(slides, values) {
   const courseLine = values.course
-    ? `<p class="text-lg opacity-90 mt-8">${escapeHtml(values.course)}</p>`
+    ? `> ${escapeHtml(values.course)}`
     : '';
   const organizationLine = values.organization
-    ? `<p class="text-lg mt-2">${escapeHtml(values.organization)}</p>`
+    ? `> ${escapeHtml(values.organization)}`
     : '';
   const footerContext = values.course || values.organization;
   const footerLine = footerContext
@@ -76,11 +76,12 @@ function personalizeSlides(slides, values) {
 
   return slides
     .replace('title: "A prezentáció címe"', `title: ${yamlString(values.title)}`)
-    .replace('<strong>A prezentáció címe</strong>', `<strong>${escapeHtml(values.title)}</strong>`)
-    .replace('<p class="text-lg opacity-90 mt-8">[Kurzus, tantárgy vagy alkalom – opcionális]</p>', courseLine)
+    .replace('# A prezentáció címe', `# ${escapeHtml(values.title)}`)
+    .replace('> [Kurzus, tantárgy vagy alkalom – opcionális]', courseLine)
+    .replace('> **[Előadó neve]**', `> **${escapeHtml(values.presenter)}**`)
     .replaceAll('[Előadó neve]', escapeHtml(values.presenter))
-    .replace('<p class="text-lg mt-2">[Szak / tanszék / szervezeti egység – opcionális]</p>', organizationLine)
-    .replace('<p class="text-xl mt-4 opacity-80 m-0 font-bold">[Dátum]</p>', `<p class="text-xl mt-4 opacity-80 m-0 font-bold">${escapeHtml(values.date)}</p>`)
+    .replace('> [Szak / tanszék / szervezeti egység – opcionális]', organizationLine)
+    .replace('> [Dátum]', `> ${escapeHtml(values.date)}`)
     .replace('[Kurzus / szervezeti egység – opcionális] · [Dátum]', footerLine);
 }
 

@@ -72,7 +72,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   const assetNames = await readdir(join(projectDir, 'public', 'assets'));
 
   assert.match(slides, /title: "Témakör: \\\"SQL\\\""/);
-  assert.match(slides, /<strong>Témakör: &quot;SQL&quot;<\/strong>/);
+  assert.match(slides, /# Témakör: &quot;SQL&quot;/);
   assert.match(slides, /&lt;Kiss &amp; Társa&gt;/);
   assert.match(slides, /Adatbázisok/);
   assert.doesNotMatch(slides, /\[Előadó neve\]|\[Dátum\]/);
