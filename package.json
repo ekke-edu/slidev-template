@@ -1,12 +1,48 @@
 {
-  "name": "ekke-slidev-presentation",
-  "private": true,
+  "name": "create-ekke-slidev",
+  "version": "1.1.0",
+  "description": "CLI to create an EKKE-branded Slidev presentation",
   "type": "module",
+  "bin": {
+    "create-ekke-slidev": "./bin/create.mjs"
+  },
+  "files": [
+    "bin/",
+    ".github/workflows/deploy.yml",
+    ".gitignore",
+    "layouts/",
+    "public/assets/",
+    "slides.md",
+    "vite.config.ts",
+    "README.md",
+    "LICENSE",
+    "generator-pnpm-lock.yaml"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "keywords": [
+    "slidev",
+    "presentation",
+    "ekke",
+    "cli",
+    "template"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ekke-edu/slidev-template.git"
+  },
   "packageManager": "pnpm@11.25.0",
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",
-    "export": "slidev export"
+    "export": "slidev export",
+    "create": "node ./bin/create.mjs",
+    "test": "node --test",
+    "release:patch": "pnpm version patch --tag-version-prefix \"\" --message \"chore(release): v%s\"",
+    "release:minor": "pnpm version minor --tag-version-prefix \"\" --message \"chore(release): v%s\"",
+    "release:major": "pnpm version major --tag-version-prefix \"\" --message \"chore(release): v%s\""
   },
   "devDependencies": {
     "@slidev/cli": "53.0.0",

@@ -1,25 +1,18 @@
 ---
 title: "A prezentáció címe"
 routerMode: hash
+layout: ekke-cover
 ---
 
-<!-- Címlap: írd át az alábbi mintaszövegeket a saját prezentációdhoz. -->
-<div class="absolute inset-0 flex flex-col font-sans">
-  <div class="w-full h-1/2 bg-[#1a2a5a] flex items-start justify-center pt-24 relative">
-    <h1 class="text-6xl font-bold text-white tracking-wide z-10 m-0 border-none text-center px-12">
-      <strong>A prezentáció címe</strong>
-    </h1>
-  </div>
-  <div class="w-full h-1/2 bg-white flex flex-col items-center justify-start pt-24 relative text-[#1a2a5a]">
-    <p class="text-lg opacity-90 mt-8">[Kurzus, tantárgy vagy alkalom – opcionális]</p>
-    <p class="text-3xl font-bold mt-3 mb-1 text-center px-10">[Előadó neve]</p>
-    <p class="text-lg mt-2">[Szak / tanszék / szervezeti egység – opcionális]</p>
-    <p class="text-xl mt-4 opacity-80 m-0 font-bold">[Dátum]</p>
-  </div>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center z-20 w-full pointer-events-none">
-    <img src="/assets/ekke-logo-cover.png" class="w-[34rem] max-w-[76%] h-auto object-contain" alt="Eszterházy Károly Katolikus Egyetem" />
-  </div>
-</div>
+# A prezentáció címe
+
+> [Kurzus, tantárgy vagy alkalom – opcionális]
+>
+> **[Előadó neve]**
+>
+> [Szak / tanszék / szervezeti egység – opcionális]
+>
+> [Dátum]
 
 ---
 
