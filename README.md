@@ -7,13 +7,13 @@ Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és ok
 Ha a sablont a GitHub-repóból szeretnéd használni, a Node.js telepítése után futtasd:
 
 ```sh
-npx --yes --package=github:ekke-edu/slidev-template create-ekke-slidev
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides
 ```
 
 Megadhatod előre a mappa nevét is:
 
 ```sh
-npx --yes --package=github:ekke-edu/slidev-template create-ekke-slidev --dir adatbazis-eloadas
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir adatbazis-eloadas
 ```
 
 A parancs rákérdez a prezentáció címére, az előadó nevére, a kurzusra, a szervezeti egységre és a dátumra. A kurzus és a szervezeti egység elhagyható. A kész prezentáció külön mappába kerül; meglévő mappát nem ír felül. Lépj be az új mappába, majd indítsd el:
@@ -27,7 +27,7 @@ pnpm dev
 Ha a csomag később megjelenik az npm-en, ugyanez a generátor rövidebben is indítható lesz:
 
 ```sh
-npm create ekke-slidev@latest -- adatbazis-eloadas
+npm create ekke-slides@latest -- adatbazis-eloadas
 ```
 
 Az első npm-kiadás verziója `1.1.0` lesz, az `1.0.0` tag utáni minor kiadásként. A további kiadásoknál a Conventional Commits szerint írd a commitüzeneteket (`feat:` új funkció, `fix:` javítás, `docs:` dokumentáció, a kompatibilitást törő változást pedig `BREAKING CHANGE:` jelölje). A verziót és a megfelelő, `1.1.0` formátumú Git taget pnpm-mel emelheted:

@@ -32,9 +32,9 @@ function printHelp() {
   output.write(`EKKE Slidev prezentáció létrehozása
 
 Használat:
-  npm create ekke-slidev@latest
-  npm create ekke-slidev@latest -- sajat-prezentacio
-  npx --yes --package=github:ekke-edu/slidev-template create-ekke-slidev --dir sajat-prezentacio
+  npm create ekke-slides@latest
+  npm create ekke-slides@latest -- sajat-prezentacio
+  npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir sajat-prezentacio
 
 Opciók:
   -d, --dir <név>  A projektmappa neve (ha nincs megadva, a parancs rákérdez)
