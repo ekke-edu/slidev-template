@@ -10,6 +10,7 @@ import { escapeHtml, slugify, validateFolderName, yamlString } from '../bin/help
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const cli = join(root, 'bin', 'create.mjs');
+const normalizeLineEndings = (value) => value.replace(/\r\n?/g, '\n');
 
 async function runCli(cwd, args, answers = []) {
   const child = spawn(process.execPath, [cli, ...args], { cwd });
@@ -80,12 +81,12 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   assert.equal(manifest.bin, undefined);
   assert.deepEqual(assetNames.sort(), ['ekke-logo-cover.png', 'ekke-logo-inverse.png', 'ekke-logo.png']);
   assert.equal(
-    await readFile(join(projectDir, 'pnpm-lock.yaml'), 'utf8'),
-    await readFile(join(root, 'pnpm-lock.yaml'), 'utf8'),
+    normalizeLineEndings(await readFile(join(projectDir, 'pnpm-lock.yaml'), 'utf8')),
+    normalizeLineEndings(await readFile(join(root, 'pnpm-lock.yaml'), 'utf8')),
   );
   assert.equal(
-    await readFile(join(root, 'generator-pnpm-lock.yaml'), 'utf8'),
-    await readFile(join(root, 'pnpm-lock.yaml'), 'utf8'),
+    normalizeLineEndings(await readFile(join(root, 'generator-pnpm-lock.yaml'), 'utf8')),
+    normalizeLineEndings(await readFile(join(root, 'pnpm-lock.yaml'), 'utf8')),
     'Keep the publishable generator lockfile in sync with the development lockfile.',
   );
   assert.match(result.stdout, /pnpm install --frozen-lockfile/);

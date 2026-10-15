@@ -3,7 +3,7 @@ title: "A prezentáció címe"
 routerMode: hash
 ---
 
-<!-- Címlap: írd át az alábbi mintaszövegeket a saját prezentációdhoz. -->
+<!-- Címlap: írd át az alábbi mintaszövegeket a saját prezentációdhoz. A HTML-elemek között ne hagyj üres sort: az lezárja a Markdown HTML-blokkot, és a következő tag sima szövegként jelenhet meg. -->
 <div class="absolute inset-0 flex flex-col font-sans">
   <div class="w-full h-1/2 bg-[#1a2a5a] flex items-start justify-center pt-24 relative">
     <h1 class="text-6xl font-bold text-white tracking-wide z-10 m-0 border-none text-center px-12">

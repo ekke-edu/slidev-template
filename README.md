@@ -63,6 +63,8 @@ Ha npm-et használsz, a `npm install` és `npm run dev` parancsokkal is telepít
 
 A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlapon a prezentáció címét, a kurzus vagy alkalom nevét, az előadó adatait és a dátumot. A mezők szabadon alakíthatók: például szakdolgozati védéshez felveheted a szakot, témavezetőt vagy más, ott szükséges adatot; kurzusbemutatónál elhagyhatod a nem releváns mezőket. Ezután írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
 
+A címlap egy HTML-blokk. A benne lévő HTML-elemek között ne hagyj üres sort, mert a Markdown ilyenkor lezárja a blokkot, és a következő HTML-tag látható szövegként jelenhet meg. Ha egy adat nem kell, töröld a hozzá tartozó teljes `<p>...</p>` sort.
+
 Ha még nem használtad a Slidev-et, a [rövid útmutató](https://sli.dev/guide/) segít a Markdown, a kódblokkok, a képek és az elrendezések használatában.
 
 ### 4. Készíts PDF-et vagy tedd közzé
