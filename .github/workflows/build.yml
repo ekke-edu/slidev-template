@@ -25,5 +25,7 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Test project generator
+        run: pnpm test
       - name: Build presentation with a project-site base path
         run: pnpm build --base /slidev-template-check/

@@ -2,6 +2,34 @@
 
 Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és oktatóinak készült. Használhatod kurzusbemutatóhoz, beadandóhoz, előadáshoz vagy akár szakdolgozati védéshez is. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
 
+## Új prezentáció készítése parancssorból
+
+Ha a sablont a GitHub-repóból szeretnéd használni, a Node.js telepítése után futtasd:
+
+```sh
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slidev
+```
+
+Megadhatod előre a mappa nevét is:
+
+```sh
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slidev --dir adatbazis-eloadas
+```
+
+A parancs rákérdez a prezentáció címére, az előadó nevére, a kurzusra, a szervezeti egységre és a dátumra. A kurzus és a szervezeti egység elhagyható. A kész prezentáció külön mappába kerül; meglévő mappát nem ír felül. Lépj be az új mappába, majd indítsd el:
+
+```sh
+cd adatbazis-eloadas
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Ha a csomag később megjelenik az npm-en, ugyanez a generátor rövidebben is indítható lesz:
+
+```sh
+npm create ekke-slidev@latest -- adatbazis-eloadas
+```
+
 ## Saját prezentáció készítése
 
 ### 1. Hozz létre egy saját példányt
@@ -18,6 +46,8 @@ pnpm dev
 ```
 
 A terminálban megjelenő helyi címet nyisd meg a böngészőben. A `pnpm dev` parancsot futtatva a szerkesztések után a bemutató automatikusan frissül.
+
+Ha npm-et használsz, a `npm install` és `npm run dev` parancsokkal is telepítheted a függőségeket és elindíthatod a diákat.
 
 ### 3. Cseréld ki a mintatartalmat
 
@@ -51,5 +81,6 @@ Az EKKE-logók az egyetem [hivatalos logóoldaláról](https://uni-eszterhazy.hu
 | `pnpm dev` | Helyi bemutató és szerkesztés |
 | `pnpm build` | A közzétehető változat elkészítése a `dist/` mappába |
 | `pnpm export` | PDF-export |
+| `pnpm test` | A projektgenerátor ellenőrzése |
 
 Ha hibába ütközöl, először ellenőrizd, hogy a Node.js és a pnpm megfelelő verziója van-e telepítve, majd futtasd újra a `pnpm install --frozen-lockfile` parancsot. Javaslatokat és javításokat szívesen fogadunk; a közreműködéshez lásd a [CONTRIBUTING.md](CONTRIBUTING.md) fájlt.
