@@ -80,7 +80,10 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   assert.match(slides, /# Témakör: &quot;SQL&quot;/);
   assert.match(slides, /&lt;Kiss &amp; Társa&gt;/);
   assert.match(slides, /Adatbázisok/);
-  assert.equal(generatedGitignore, await readFile(join(root, '.gitignore'), 'utf8'));
+  assert.equal(
+    normalizeLineEndings(generatedGitignore),
+    normalizeLineEndings(await readFile(join(root, '.gitignore'), 'utf8')),
+  );
   assert.doesNotMatch(slides, /\[Előadó neve\]|\[Dátum\]/);
   assert.equal(manifest.name, 'arvizturo-eloadas');
   assert.equal(manifest.private, true);
