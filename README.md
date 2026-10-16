@@ -4,16 +4,16 @@ Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és ok
 
 ## Új prezentáció készítése parancssorból
 
-Ha a sablont a GitHub-repóból szeretnéd használni, a Node.js telepítése után futtasd:
+Az npm-csomaggal ez a legegyszerűbb; telepítés nélkül, a Node.js után futtasd:
 
 ```sh
-npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides
+npm create ekke-slides@latest
 ```
 
 Megadhatod előre a mappa nevét is:
 
 ```sh
-npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir adatbazis-eloadas
+npm create ekke-slides@latest -- adatbazis-eloadas
 ```
 
 A parancs rákérdez a prezentáció címére, az előadó nevére, a kurzusra, a szervezeti egységre és a dátumra. A kurzus és a szervezeti egység elhagyható. A kész prezentáció külön mappába kerül; meglévő mappát nem ír felül. Lépj be az új mappába, majd indítsd el:
@@ -24,13 +24,26 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Ha a csomag később megjelenik az npm-en, ugyanez a generátor rövidebben is indítható lesz:
+Ha kifejezetten a GitHub-repó aktuális sablonját szeretnéd használni, ezt is futtathatod:
 
 ```sh
-npm create ekke-slides@latest -- adatbazis-eloadas
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir adatbazis-eloadas
 ```
 
-Az első npm-kiadás verziója `1.1.0` lesz, az `1.0.0` tag utáni minor kiadásként. A további kiadásoknál a Conventional Commits szerint írd a commitüzeneteket (`feat:` új funkció, `fix:` javítás, `docs:` dokumentáció, a kompatibilitást törő változást pedig `BREAKING CHANGE:` jelölje). A verziót és a megfelelő, `1.1.0` formátumú Git taget pnpm-mel emelheted:
+### GitHub Packages használata
+
+A generátor az npmjs.org-on érhető el a fenti egyszerű paranccsal. Kiegészítőként a GitHub Packages registrybe is publikálható `@ekke-edu/create-ekke-slides` néven, így megjelenik a GitHub-repó **Packages** részén. A GitHubos csomag telepítéséhez GitHub-hitelesítés kell: készíts egy classic personal access tokent `read:packages` jogosultsággal, majd jelentkezz be:
+
+```sh
+npm login --scope=@ekke-edu --auth-type=legacy --registry=https://npm.pkg.github.com
+npm install -g @ekke-edu/create-ekke-slides
+```
+
+A belépéskor a GitHub-felhasználónevedet és a tokent add meg jelszóként. A csomag első publikáláskor privátként jöhet létre; ha mások számára is elérhetővé szeretnéd tenni, a GitHubon a csomag beállításainál válaszd a **Change visibility → Public** lehetőséget. Hallgatóknak továbbra is az npmjs.org-os telepítést érdemes ajánlani, mert ahhoz nem kell GitHub-token.
+
+A GitHub Packages publikálása a **Publish GitHub Package** Actions-munkafolyamattal történik. Új verzióknál GitHub Release közzétételekor automatikusan lefut. Első alkalommal, vagy egy már létező tag publikálásához az **Actions → Publish GitHub Package → Run workflow** oldalon válaszd ki a `main` ágat, majd add meg a `tag` mezőben a publikálandó verziót (például `1.2.1`). A munkafolyamat ellenőrzi, hogy a tag és a `package.json` verziója egyezik-e.
+
+A kiadásoknál a Conventional Commits szerint írd a commitüzeneteket (`feat:` új funkció, `fix:` javítás, `docs:` dokumentáció, a kompatibilitást törő változást pedig `BREAKING CHANGE:` jelölje). A verziót és a megfelelő, `1.2.1` formátumú Git taget pnpm-mel emelheted:
 
 ```sh
 pnpm release:patch
