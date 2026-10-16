@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,8 +12,8 @@ const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const cli = join(root, 'bin', 'create.mjs');
 const normalizeLineEndings = (value) => value.replace(/\r\n?/g, '\n');
 
-async function runCli(cwd, args, answers = []) {
-  const child = spawn(process.execPath, [cli, ...args], { cwd });
+async function runCli(cwd, args, answers = [], cliPath = cli) {
+  const child = spawn(process.execPath, [cliPath, ...args], { cwd });
   const prompts = args.length
     ? ['A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve', 'Szak, tanszék vagy szervezeti egység', 'Dátum']
     : ['Projektmappa neve', 'A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve', 'Szak, tanszék vagy szervezeti egység', 'Dátum'];
@@ -109,4 +109,34 @@ test('CLI refuses to overwrite an existing project directory', async (t) => {
   assert.match(result.stdout, /A célmappa már létezik/);
   assert.equal(await readFile(join(targetDir, 'keep.txt'), 'utf8'), 'leave this alone');
   assert.deepEqual(await readdir(targetDir), ['keep.txt']);
+});
+
+test('CLI restores .gitignore when npm provides it as .npmignore', async (t) => {
+  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-npm-install-'));
+  t.after(() => rm(workingDir, { recursive: true, force: true }));
+  const installedPackage = join(workingDir, 'node_modules', 'create-ekke-slides');
+  await mkdir(installedPackage, { recursive: true });
+
+  for (const file of [
+    '.github', 'bin', 'layouts', 'public', 'slides.md', 'vite.config.ts', 'README.md',
+    'LICENSE', 'generator-pnpm-lock.yaml', 'package.json',
+  ]) {
+    await cp(join(root, file), join(installedPackage, file), { recursive: true });
+  }
+  await cp(join(root, '.gitignore'), join(installedPackage, '.npmignore'));
+
+  const installedCli = join(installedPackage, 'bin', 'create.mjs');
+  const result = await runCli(workingDir, ['npm-installed-demo'], [
+    'NPM telepített csomag teszt',
+    'Tesztelő',
+    '',
+    '',
+    '2026.10.16.',
+  ], installedCli);
+
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.equal(
+    await readFile(join(workingDir, 'npm-installed-demo', '.gitignore'), 'utf8'),
+    await readFile(join(root, '.gitignore'), 'utf8'),
+  );
 });
