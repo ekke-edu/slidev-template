@@ -31,7 +31,7 @@
 
 .ekke-cover .cover-logo {
   z-index: 2;
-  width: min(70vw, 34rem);
+  width: min(58vw, 28rem);
   height: auto;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -58,27 +58,28 @@
 
 .ekke-cover .cover-content blockquote {
   position: absolute;
-  top: 64%;
+  top: 69%;
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 1.2rem;
-  line-height: 1.45;
+  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+  line-height: 1.3;
 }
 
 .ekke-cover .cover-content blockquote p {
-  margin: 0.45rem 0;
+  margin: 0;
 }
 
 .ekke-cover .cover-content blockquote p:nth-of-type(2) {
-  margin-top: 1rem;
-  font-size: 1.8rem;
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
   font-weight: 700;
 }
 
 .ekke-cover .cover-content blockquote p:last-child {
-  margin-top: 1rem;
   font-weight: 700;
 }
 </style>
