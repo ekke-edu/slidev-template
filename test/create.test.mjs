@@ -72,6 +72,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   assert.match(result.stdout, /Elkészült a prezentáció/, result.stdout + result.stderr);
   const projectDir = join(workingDir, 'arvizturo-eloadas');
   const slides = await readFile(join(projectDir, 'slides.md'), 'utf8');
+  const generatedGitignore = await readFile(join(projectDir, '.gitignore'), 'utf8');
   const manifest = JSON.parse(await readFile(join(projectDir, 'package.json'), 'utf8'));
   const assetNames = await readdir(join(projectDir, 'public', 'assets'));
 
@@ -79,6 +80,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   assert.match(slides, /# Témakör: &quot;SQL&quot;/);
   assert.match(slides, /&lt;Kiss &amp; Társa&gt;/);
   assert.match(slides, /Adatbázisok/);
+  assert.equal(generatedGitignore, await readFile(join(root, '.gitignore'), 'utf8'));
   assert.doesNotMatch(slides, /\[Előadó neve\]|\[Dátum\]/);
   assert.equal(manifest.name, 'arvizturo-eloadas');
   assert.equal(manifest.private, true);
@@ -111,19 +113,18 @@ test('CLI refuses to overwrite an existing project directory', async (t) => {
   assert.deepEqual(await readdir(targetDir), ['keep.txt']);
 });
 
-test('CLI restores .gitignore when npm provides it as .npmignore', async (t) => {
+test('CLI includes .gitignore in generated projects from the packed template file', async (t) => {
   const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-npm-install-'));
   t.after(() => rm(workingDir, { recursive: true, force: true }));
   const installedPackage = join(workingDir, 'node_modules', 'create-ekke-slides');
   await mkdir(installedPackage, { recursive: true });
 
   for (const file of [
-    '.github', 'bin', 'layouts', 'public', 'slides.md', 'vite.config.ts', 'README.md',
+    '.github', 'bin', 'layouts', 'public', 'template.gitignore', 'slides.md', 'vite.config.ts', 'README.md',
     'LICENSE', 'generator-pnpm-lock.yaml', 'package.json',
   ]) {
     await cp(join(root, file), join(installedPackage, file), { recursive: true });
   }
-  await cp(join(root, '.gitignore'), join(installedPackage, '.npmignore'));
 
   const installedCli = join(installedPackage, 'bin', 'create.mjs');
   const result = await runCli(workingDir, ['npm-installed-demo'], [
@@ -135,8 +136,6 @@ test('CLI restores .gitignore when npm provides it as .npmignore', async (t) => 
   ], installedCli);
 
   assert.equal(result.status, 0, result.stdout + result.stderr);
-  assert.equal(
-    await readFile(join(workingDir, 'npm-installed-demo', '.gitignore'), 'utf8'),
-    await readFile(join(root, '.gitignore'), 'utf8'),
-  );
+  assert.equal(await readFile(join(workingDir, 'npm-installed-demo', '.gitignore'), 'utf8'),
+    await readFile(join(root, 'template.gitignore'), 'utf8'));
 });

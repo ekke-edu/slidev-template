@@ -9,7 +9,7 @@
   "files": [
     "bin/",
     ".github/workflows/deploy.yml",
-    ".gitignore",
+    "template.gitignore",
     "layouts/",
     "public/assets/",
     "slides.md",
