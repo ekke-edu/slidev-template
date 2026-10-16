@@ -9,7 +9,6 @@ import { escapeHtml, slugify, validateFolderName, yamlString } from './helpers.m
 const packageDir = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const templateFiles = [
   '.github',
-  '.gitignore',
   'layouts',
   'public',
   'slides.md',
@@ -18,6 +17,17 @@ const templateFiles = [
   'LICENSE',
   'generator-pnpm-lock.yaml',
 ];
+
+async function readTemplateGitignore() {
+  for (const filename of ['.gitignore', '.npmignore']) {
+    try {
+      return await readFile(join(packageDir, filename), 'utf8');
+    } catch (error) {
+      if (error?.code !== 'ENOENT') throw error;
+    }
+  }
+  throw new Error('A sablonból hiányzik a .gitignore fájl.');
+}
 
 function parseArgs(args) {
   const values = args.filter((arg) => arg !== '--');
@@ -100,6 +110,7 @@ async function createProject(folderInput, values) {
       const targetName = file === 'generator-pnpm-lock.yaml' ? 'pnpm-lock.yaml' : file;
       await cp(join(packageDir, file), join(targetDir, targetName), { recursive: true, errorOnExist: true, force: false });
     }
+    await writeFile(join(targetDir, '.gitignore'), await readTemplateGitignore(), 'utf8');
 
     const sourceManifest = JSON.parse(await readFile(join(packageDir, 'package.json'), 'utf8'));
     const projectManifest = {
