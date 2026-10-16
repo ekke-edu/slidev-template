@@ -11,23 +11,13 @@ const templateFiles = [
   '.github',
   'layouts',
   'public',
+  'template.gitignore',
   'slides.md',
   'vite.config.ts',
   'README.md',
   'LICENSE',
   'generator-pnpm-lock.yaml',
 ];
-
-async function readTemplateGitignore() {
-  for (const filename of ['.gitignore', '.npmignore']) {
-    try {
-      return await readFile(join(packageDir, filename), 'utf8');
-    } catch (error) {
-      if (error?.code !== 'ENOENT') throw error;
-    }
-  }
-  throw new Error('A sablonból hiányzik a .gitignore fájl.');
-}
 
 function parseArgs(args) {
   const values = args.filter((arg) => arg !== '--');
@@ -107,10 +97,13 @@ async function createProject(folderInput, values) {
     await mkdir(targetDir);
     created = true;
     for (const file of templateFiles) {
-      const targetName = file === 'generator-pnpm-lock.yaml' ? 'pnpm-lock.yaml' : file;
+      const targetName = file === 'template.gitignore'
+        ? '.gitignore'
+        : file === 'generator-pnpm-lock.yaml'
+          ? 'pnpm-lock.yaml'
+          : file;
       await cp(join(packageDir, file), join(targetDir, targetName), { recursive: true, errorOnExist: true, force: false });
     }
-    await writeFile(join(targetDir, '.gitignore'), await readTemplateGitignore(), 'utf8');
 
     const sourceManifest = JSON.parse(await readFile(join(packageDir, 'package.json'), 'utf8'));
     const projectManifest = {
