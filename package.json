@@ -15,6 +15,7 @@
     "slides.md",
     "vite.config.ts",
     "README.md",
+    "README.hu.md",
     "LICENSE",
     "generator-pnpm-lock.yaml"
   ],
