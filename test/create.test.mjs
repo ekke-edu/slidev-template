@@ -4,19 +4,37 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { cp, mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { escapeHtml, slugify, validateFolderName, yamlString } from '../bin/helpers.mjs';
+import { formatReleaseNotes } from '../scripts/release-notes.mjs';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const cli = join(root, 'bin', 'create.mjs');
 const normalizeLineEndings = (value) => value.replace(/\r\n?/g, '\n');
 
-async function runCli(cwd, args, answers = [], cliPath = cli) {
-  const child = spawn(process.execPath, [cliPath, ...args], { cwd });
-  const prompts = args.length
-    ? ['A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve', 'Szak, tanszék vagy szervezeti egység', 'Dátum']
-    : ['Projektmappa neve', 'A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve', 'Szak, tanszék vagy szervezeti egység', 'Dátum'];
+async function runCli(cwd, args, answers = [], cliPath = cli, { askLanguage = false } = {}) {
+  const languageFlag = args.findIndex((arg) => ['--lang', '--language', '-l'].includes(arg));
+  const language = languageFlag >= 0 ? args[languageFlag + 1] : (askLanguage ? answers[0] : 'hu');
+  const cliArgs = languageFlag >= 0 || askLanguage ? args : ['--lang', 'hu', ...args];
+  const hasDirectory = args.some((arg, index) => {
+    if (index > 0 && ['--lang', '--language', '-l', '--dir', '-d'].includes(args[index - 1])) return false;
+    return !arg.startsWith('-') && !['--'].includes(arg);
+  }) || args.some((arg) => ['--dir', '-d'].includes(arg));
+  const prompts = language === 'en'
+    ? [
+        ...(askLanguage ? ['Language (hu/en)'] : []),
+        ...(!hasDirectory ? ['Project folder name'] : []),
+        'Presentation title', 'Presenter name', 'Course, subject, or event name',
+        'Degree programme, department, or unit', 'Date',
+      ]
+    : [
+        ...(askLanguage ? ['Nyelv / Language (hu/en)'] : []),
+        ...(!hasDirectory ? ['Projektmappa neve'] : []),
+        'A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve',
+        'Szak, tanszék vagy szervezeti egység', 'Dátum',
+      ];
+  const child = spawn(process.execPath, [cliPath, ...cliArgs], { cwd });
   let stdout = '';
   let stderr = '';
   let answered = 0;
@@ -52,9 +70,25 @@ test('folder validation blocks path traversal and Windows reserved names', () =>
   assert.equal(validateFolderName('CON').ok, false);
 });
 
+test('release notes group Conventional Commits and omit the release commit', () => {
+  const notes = formatReleaseNotes('1.2.4', [
+    { sha: '1111111111111111111111111111111111111111', subject: 'feat(cli): add English prompts (#8)', body: '' },
+    { sha: '2222222222222222222222222222222222222222', subject: 'fix: prevent output collision (#9)', body: '' },
+    { sha: '3333333333333333333333333333333333333333', subject: 'docs: translate README (#10)', body: 'BREAKING CHANGE: the README default language changed.' },
+    { sha: '4444444444444444444444444444444444444444', subject: 'chore(release): v1.2.4', body: '' },
+  ]);
+
+  assert.match(notes, /## Features\n\n- cli: add English prompts/);
+  assert.match(notes, /## Fixes\n\n- prevent output collision/);
+  assert.match(notes, /## Breaking changes/);
+  assert.match(notes, /## Documentation/);
+  assert.doesNotMatch(notes, /chore\(release\)/);
+});
+
 test('CLI creates a personalized Slidev project with transparent logos and a matching package manifest', async (t) => {
   const generatorManifest = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
   assert.equal(generatorManifest.name, 'create-ekke-slides');
+  assert.equal(generatorManifest.version, '1.2.3');
   assert.deepEqual(generatorManifest.bin, { 'create-ekke-slides': './bin/create.mjs' });
 
   const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-'));
@@ -75,6 +109,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   const generatedGitignore = await readFile(join(projectDir, '.gitignore'), 'utf8');
   const manifest = JSON.parse(await readFile(join(projectDir, 'package.json'), 'utf8'));
   const assetNames = await readdir(join(projectDir, 'public', 'assets'));
+  const projectWorkflows = await readdir(join(projectDir, '.github', 'workflows'));
 
   assert.match(slides, /title: "Témakör: \\\"SQL\\\""/);
   assert.match(slides, /# Témakör: &quot;SQL&quot;/);
@@ -88,6 +123,7 @@ test('CLI creates a personalized Slidev project with transparent logos and a mat
   assert.equal(manifest.name, 'arvizturo-eloadas');
   assert.equal(manifest.private, true);
   assert.equal(manifest.bin, undefined);
+  assert.deepEqual(projectWorkflows, ['deploy.yml']);
   assert.deepEqual(assetNames.sort(), ['ekke-logo-cover.png', 'ekke-logo-inverse.png', 'ekke-logo.png']);
   assert.equal(
     normalizeLineEndings(await readFile(join(projectDir, 'pnpm-lock.yaml'), 'utf8')),
@@ -116,6 +152,27 @@ test('CLI refuses to overwrite an existing project directory', async (t) => {
   assert.deepEqual(await readdir(targetDir), ['keep.txt']);
 });
 
+test('CLI lets the user choose English and creates a project with matching documentation', async (t) => {
+  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-english-'));
+  t.after(() => rm(workingDir, { recursive: true, force: true }));
+
+  const result = await runCli(workingDir, [], [
+    'en',
+    'Campus Talk',
+    'An Introduction',
+    'Databases',
+    'Computer Science',
+    '2026-10-26',
+  ], cli, { askLanguage: true });
+
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.match(result.stdout, /Create an EKKE Slidev presentation/);
+  assert.match(result.stdout, /Presentation created: campus-talk/);
+  const projectDir = join(workingDir, 'campus-talk');
+  assert.equal(await readFile(join(projectDir, 'README.md'), 'utf8'), await readFile(join(root, 'README.md'), 'utf8'));
+  assert.equal(await readFile(join(projectDir, 'README.hu.md'), 'utf8'), await readFile(join(root, 'README.hu.md'), 'utf8'));
+});
+
 test('CLI includes .gitignore in generated projects from the packed template file', async (t) => {
   const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-npm-install-'));
   t.after(() => rm(workingDir, { recursive: true, force: true }));
@@ -123,10 +180,12 @@ test('CLI includes .gitignore in generated projects from the packed template fil
   await mkdir(installedPackage, { recursive: true });
 
   for (const file of [
-    '.github', 'bin', 'layouts', 'public', 'template.gitignore', 'slides.md', 'vite.config.ts', 'README.md',
+    '.github/workflows/deploy.yml', 'bin', 'layouts', 'public', 'template.gitignore', 'slides.md', 'vite.config.ts', 'README.md', 'README.hu.md',
     'LICENSE', 'generator-pnpm-lock.yaml', 'package.json',
   ]) {
-    await cp(join(root, file), join(installedPackage, file), { recursive: true });
+    const destination = join(installedPackage, file);
+    await mkdir(dirname(destination), { recursive: true });
+    await cp(join(root, file), destination, { recursive: true });
   }
 
   const installedCli = join(installedPackage, 'bin', 'create.mjs');

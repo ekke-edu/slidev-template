@@ -1,6 +1,6 @@
 {
   "name": "create-ekke-slides",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "CLI to create an EKKE-branded Slidev presentation",
   "type": "module",
   "bin": {
@@ -15,6 +15,7 @@
     "slides.md",
     "vite.config.ts",
     "README.md",
+    "README.hu.md",
     "LICENSE",
     "generator-pnpm-lock.yaml"
   ],

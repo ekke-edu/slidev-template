@@ -1,49 +1,104 @@
-# EKKE prezentációs sablon
+# EKKE Slidev presentation template
 
-Ez a Slidev-sablon az Eszterházy Károly Katolikus Egyetem hallgatóinak és oktatóinak készült. Használhatod kurzusbemutatóhoz, beadandóhoz, előadáshoz vagy akár szakdolgozati védéshez is. Az EKKE hivatalos logója alapból megjelenik a címlapon, a fejlécben és halvány vízjelként. A sablon közösségi kezdeményezés, nem az egyetem hivatalos kiadványa.
+[English](README.md) · [Magyar](README.hu.md)
 
-## Új prezentáció készítése parancssorból
+An unofficial Slidev template for students and instructors at Eszterházy Károly Catholic University (EKKE). Use it for a course presentation, an assignment, a lecture, or a thesis defence. The EKKE logo is included by default. This is a community project, not an official university publication.
 
-Az npm-csomaggal ez a legegyszerűbb; telepítés nélkül, a Node.js után futtasd:
+## Create a presentation from the command line
+
+The easiest option is the npm package. You do not need to install the generator first:
 
 ```sh
 npm create ekke-slides@latest
 ```
 
-Megadhatod előre a mappa nevét is:
+You can pass a folder name as well:
 
 ```sh
-npm create ekke-slides@latest -- adatbazis-eloadas
+npm create ekke-slides@latest -- database-talk
 ```
 
-A parancs rákérdez a prezentáció címére, az előadó nevére, a kurzusra, a szervezeti egységre és a dátumra. A kurzus és a szervezeti egység elhagyható. A kész prezentáció külön mappába kerül; meglévő mappát nem ír felül. Lépj be az új mappába, majd indítsd el:
+The CLI asks for the presentation title, presenter, course or event, department, and date. Course and department are optional. The new project is created in a separate folder and existing files are never overwritten. Then start it:
 
 ```sh
-cd adatbazis-eloadas
+cd database-talk
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Ha kifejezetten a GitHub-repó aktuális sablonját szeretnéd használni, ezt is futtathatod:
+The CLI prompts in Hungarian by default. Choose English at the language prompt, or set it directly:
 
 ```sh
-npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir adatbazis-eloadas
+npm create ekke-slides@latest -- --lang en --dir my-presentation
 ```
 
-### GitHub Packages használata
+To use the current template files from GitHub instead of the published npm version:
 
-A generátor az npmjs.org-on érhető el a fenti egyszerű paranccsal. Kiegészítőként a GitHub Packages registrybe is publikálható `@ekke-edu/create-ekke-slides` néven, így megjelenik a GitHub-repó **Packages** részén. A GitHubos csomag telepítéséhez GitHub-hitelesítés kell: készíts egy classic personal access tokent `read:packages` jogosultsággal, majd jelentkezz be:
+```sh
+npx --yes --package=github:ekke-edu/slidev-template create-ekke-slides --dir database-talk
+```
+
+## GitHub Packages
+
+The public npm package is the recommended option for students because it installs without GitHub credentials. The same generator is also published to GitHub Packages as `@ekke-edu/create-ekke-slides`. GitHub Packages requires authentication even for public packages.
+
+Create a GitHub classic personal access token with `read:packages`, then sign in and install:
 
 ```sh
 npm login --scope=@ekke-edu --auth-type=legacy --registry=https://npm.pkg.github.com
 npm install -g @ekke-edu/create-ekke-slides
 ```
 
-A belépéskor a GitHub-felhasználónevedet és a tokent add meg jelszóként. A csomag első publikáláskor privátként jöhet létre; ha mások számára is elérhetővé szeretnéd tenni, a GitHubon a csomag beállításainál válaszd a **Change visibility → Public** lehetőséget. Hallgatóknak továbbra is az npmjs.org-os telepítést érdemes ajánlani, mert ahhoz nem kell GitHub-token.
+Use your GitHub username and enter the token as the password. A package is private when first published; to make it available to everyone, open the package settings on GitHub and choose **Change visibility → Public**.
 
-A GitHub Packages publikálása a **Publish GitHub Package** Actions-munkafolyamattal történik. Új verzióknál GitHub Release közzétételekor automatikusan lefut. Első alkalommal, vagy egy már létező tag publikálásához az **Actions → Publish GitHub Package → Run workflow** oldalon válaszd ki a `main` ágat, majd add meg a `tag` mezőben a publikálandó verziót (például `1.2.1`). A munkafolyamat ellenőrzi, hogy a tag és a `package.json` verziója egyezik-e.
+## Make your own presentation
 
-A kiadásoknál a Conventional Commits szerint írd a commitüzeneteket (`feat:` új funkció, `fix:` javítás, `docs:` dokumentáció, a kompatibilitást törő változást pedig `BREAKING CHANGE:` jelölje). A verziót és a megfelelő, `1.2.1` formátumú Git taget pnpm-mel emelheted:
+### 1. Create a repository from the template
+
+Open the GitHub repository, select **Use this template → Create a new repository**, and clone your new repository.
+
+### 2. Install and run
+
+Install [Node.js 22.12 or later](https://nodejs.org/) and pnpm 11, then run:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Open the local address printed in the terminal. Slidev reloads the presentation when you save changes. If you use npm instead, run `npm install` and `npm run dev`.
+
+### 3. Edit the slides
+
+Edit the presentation in `slides.md`. Replace the cover details, then update the example slides. Start a new slide with `---`. The `::header::` marker sets the slide heading; content after `::default::` is the slide body.
+
+The cover layout and styling live in `layouts/ekke-cover.vue`. Remove an optional cover field by deleting its whole blockquote line, including the leading `>`.
+
+For a quick Slidev introduction, see the [Slidev guide](https://sli.dev/guide/).
+
+### 4. Export or publish
+
+Export a PDF with:
+
+```sh
+pnpm export
+```
+
+To publish with GitHub Pages, open **Settings → Pages** in your repository and select **GitHub Actions** as the source. Pushes to `main` will then build and publish the presentation.
+
+## What to edit
+
+- Slides and cover text: `slides.md`
+- Cover layout and style: `layouts/ekke-cover.vue`
+- Shared header and watermark: `layouts/default.vue`
+- EKKE logo files: `public/assets/`
+- GitHub Pages workflow: `.github/workflows/deploy.yml`
+
+The EKKE logos come from the university's [official logo page](https://uni-eszterhazy.hu/kommunikacio/logok). If you use the template for another institution or a non-EKKE project, replace the logos with artwork you are allowed to use.
+
+## Releases and contributing
+
+Use Conventional Commit messages (`feat:`, `fix:`, `docs:`, and so on). After merging changes, prepare the next version with one of these commands:
 
 ```sh
 pnpm release:patch
@@ -51,62 +106,15 @@ pnpm release:minor
 pnpm release:major
 ```
 
-Ezek a parancsok frissítik a `package.json` verzióját, majd Conventional Commit formátumú kiadási commitot és verziótaget készítenek. A parancs előtt commitold a munkádat, mert pnpm megköveteli a tiszta munkakönyvtárat. A kiadási commitot és taget ezután pushold, majd publikáld az npm-csomagot.
+These commands update `package.json`, create a release commit, and add a version tag. Push the commit and tag; the release workflow will create GitHub release notes from the Conventional Commit messages and publish the GitHub Packages copy. Publish the npmjs.org package separately with your npm account.
 
-## Saját prezentáció készítése
+Before opening a pull request, run `pnpm test` and `pnpm build`. Suggestions and fixes are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### 1. Hozz létre egy saját példányt
+## Common commands
 
-Nyisd meg a GitHub-repót, kattints a **Use this template** gombra, majd válaszd a **Create a new repository** lehetőséget. Így a saját repód a sablon fájljaival indul. Ezután klónozd le a gépedre.
-
-### 2. Indítsd el a prezentációt
-
-Telepítsd a [Node.js 22.12 vagy újabb verzióját](https://nodejs.org/) és a pnpm 11-et. A repó mappájában futtasd:
-
-```sh
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-A terminálban megjelenő helyi címet nyisd meg a böngészőben. A `pnpm dev` parancsot futtatva a szerkesztések után a bemutató automatikusan frissül.
-
-Ha npm-et használsz, a `npm install` és `npm run dev` parancsokkal is telepítheted a függőségeket és elindíthatod a diákat.
-
-### 3. Cseréld ki a mintatartalmat
-
-A prezentáció szövege a `slides.md` fájlban van. Cseréld ki a címlapon a prezentáció címét, a kurzus vagy alkalom nevét, az előadó adatait és a dátumot. A mezők szabadon alakíthatók: például szakdolgozati védéshez felveheted a szakot, témavezetőt vagy más, ott szükséges adatot; kurzusbemutatónál elhagyhatod a nem releváns mezőket. Ezután írd át a többi dia címeit és tartalmát. Új diát a `---` elválasztóval kezdhetsz. A `::header::` sor után a dia fejlécének szövege következik; a `::default::` után jön a dia tartalma.
-
-A címlap szövege Markdownban van, ezért nyugodtan hagyhatsz üres sorokat a címsor és az adatok között. A címlap színeit, elrendezését és logóját a `layouts/ekke-cover.vue` kezeli; a szerkesztéshez elég a `slides.md` címlapján a címet és a `>` jellel kezdődő adatokat átírnod. Ha egy adat nem kell, töröld a teljes hozzá tartozó sort, a sort megelőző `>` jellel együtt.
-
-Ha még nem használtad a Slidev-et, a [rövid útmutató](https://sli.dev/guide/) segít a Markdown, a kódblokkok, a képek és az elrendezések használatában.
-
-### 4. Készíts PDF-et vagy tedd közzé
-
-PDF-export:
-
-```sh
-pnpm export
-```
-
-GitHub Pages-közzétételhez a saját repódban nyisd meg a **Settings → Pages** oldalt, és a **Build and deployment → Source** beállításnál válaszd a **GitHub Actions** lehetőséget. Ezután a `main` ágra feltöltött módosítások automatikusan elindítják a közzétételt. Az elkészült oldal címe a repó **Settings → Pages** részén jelenik meg.
-
-## Mit hol tudsz átírni?
-
-- **Diák tartalma és címlap:** `slides.md`
-- **Címlap elrendezése és stílusa:** `layouts/ekke-cover.vue`
-- **Közös fejléc és vízjel:** `layouts/default.vue`
-- **Átlátszó hátterű EKKE-logók:** `public/assets/ekke-logo-cover.png` (címlap, a kék-fehér határhoz igazított változat), `public/assets/ekke-logo.png` (vízjel) és `public/assets/ekke-logo-inverse.png` (sötét fejléc)
-- **GitHub Pages munkafolyamat:** `.github/workflows/deploy.yml`
-
-Az EKKE-logók az egyetem [hivatalos logóoldaláról](https://uni-eszterhazy.hu/kommunikacio/logok) származnak. Ha a bemutatót más intézményhez vagy saját, nem EKKE-s célra használod, cseréld le a logókat, és csak olyan képet vagy emblémát tegyél be, amelynek használatára jogosult vagy.
-
-## Gyakran használt parancsok
-
-| Parancs | Mire való? |
+| Command | Purpose |
 | --- | --- |
-| `pnpm dev` | Helyi bemutató és szerkesztés |
-| `pnpm build` | A közzétehető változat elkészítése a `dist/` mappába |
-| `pnpm export` | PDF-export |
-| `pnpm test` | A projektgenerátor ellenőrzése |
-
-Ha hibába ütközöl, először ellenőrizd, hogy a Node.js és a pnpm megfelelő verziója van-e telepítve, majd futtasd újra a `pnpm install --frozen-lockfile` parancsot. Javaslatokat és javításokat szívesen fogadunk; a közreműködéshez lásd a [CONTRIBUTING.md](CONTRIBUTING.md) fájlt.
+| `pnpm dev` | Preview and edit the slides |
+| `pnpm build` | Build the presentation into `dist/` |
+| `pnpm export` | Export a PDF |
+| `pnpm test` | Check the project generator |
