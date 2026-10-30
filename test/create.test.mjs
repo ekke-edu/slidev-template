@@ -23,17 +23,17 @@ async function runCli(cwd, args, answers = [], cliPath = cli, { askLanguage = fa
   }) || args.some((arg) => ['--dir', '-d'].includes(arg));
   const prompts = language === 'en'
     ? [
-        ...(askLanguage ? ['Language (hu/en)'] : []),
-        ...(!hasDirectory ? ['Project folder name'] : []),
-        'Presentation title', 'Presenter name', 'Course, subject, or event name',
-        'Degree programme, department, or unit', 'Date',
-      ]
+      ...(askLanguage ? ['Language (hu/en)'] : []),
+      ...(!hasDirectory ? ['Project folder name'] : []),
+      'Presentation title', 'Presenter name', 'Course, subject, or event name',
+      'Degree programme, department, or unit', 'Date',
+    ]
     : [
-        ...(askLanguage ? ['Nyelv / Language (hu/en)'] : []),
-        ...(!hasDirectory ? ['Projektmappa neve'] : []),
-        'A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve',
-        'Szak, tanszék vagy szervezeti egység', 'Dátum',
-      ];
+      ...(askLanguage ? ['Nyelv / Language (hu/en)'] : []),
+      ...(!hasDirectory ? ['Projektmappa neve'] : []),
+      'A prezentáció címe', 'Előadó neve', 'Kurzus, tantárgy vagy alkalom neve',
+      'Szak, tanszék vagy szervezeti egység', 'Dátum',
+    ];
   const child = spawn(process.execPath, [cliPath, ...cliArgs], { cwd });
   let stdout = '';
   let stderr = '';
@@ -71,11 +71,11 @@ test('folder validation blocks path traversal and Windows reserved names', () =>
 });
 
 test('release notes group Conventional Commits and omit the release commit', () => {
-  const notes = formatReleaseNotes('1.2.4', [
+  const notes = formatReleaseNotes('1.3.2', [
     { sha: '1111111111111111111111111111111111111111', subject: 'feat(cli): add English prompts (#8)', body: '' },
     { sha: '2222222222222222222222222222222222222222', subject: 'fix: prevent output collision (#9)', body: '' },
     { sha: '3333333333333333333333333333333333333333', subject: 'docs: translate README (#10)', body: 'BREAKING CHANGE: the README default language changed.' },
-    { sha: '4444444444444444444444444444444444444444', subject: 'chore(release): v1.2.4', body: '' },
+    { sha: '4444444444444444444444444444444444444444', subject: 'chore(release): v1.3.2', body: '' },
   ]);
 
   assert.match(notes, /## Features\n\n- cli: add English prompts/);
@@ -88,7 +88,7 @@ test('release notes group Conventional Commits and omit the release commit', () 
 test('CLI creates a personalized Slidev project with transparent logos and a matching package manifest', async (t) => {
   const generatorManifest = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
   assert.equal(generatorManifest.name, 'create-ekke-slides');
-  assert.equal(generatorManifest.version, '1.2.3');
+  assert.equal(generatorManifest.version, '1.3.2');
   assert.deepEqual(generatorManifest.bin, { 'create-ekke-slides': './bin/create.mjs' });
 
   const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-'));
