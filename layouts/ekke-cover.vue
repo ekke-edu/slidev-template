@@ -47,26 +47,31 @@
 
 .ekke-cover .cover-content h1 {
   position: absolute;
-  top: 10%;
+  top: 8%;
   width: 90%;
+  max-height: 34%;
+  overflow: hidden;
   margin: 0;
   border: 0;
   color: #fff;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.12;
+  font-size: clamp(1.9rem, 5.2vw, 4rem);
+  line-height: 1.06;
+  overflow-wrap: anywhere;
 }
 
 .ekke-cover .cover-content blockquote {
   position: absolute;
-  top: 69%;
+  top: 68%;
   width: 90%;
+  max-height: 27%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.3rem;
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+  font-size: clamp(0.8rem, 1.4vw, 1.05rem);
   line-height: 1.3;
 }
 
