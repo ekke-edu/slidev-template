@@ -152,21 +152,21 @@ function personalizeSlides(slides, values) {
       date: '[Dátum]',
       footer: '[Kurzus / szervezeti egység – opcionális] · [Dátum]',
     };
-  const courseLine = values.course ? \`> \${escapeHtml(values.course)}\` : '';
-  const organizationLine = values.organization ? \`> \${escapeHtml(values.organization)}\` : '';
+  const courseLine = values.course ? `> ${escapeHtml(values.course)}` : '';
+  const organizationLine = values.organization ? `> ${escapeHtml(values.organization)}` : '';
   const footerContext = values.course || values.organization;
   const footerLine = footerContext
-    ? \`\${escapeHtml(footerContext)} · \${escapeHtml(values.date)}\`
+    ? `${escapeHtml(footerContext)} · ${escapeHtml(values.date)}`
     : escapeHtml(values.date);
 
   return slides
-    .replace(\`title: "\${placeholders.title}"\`, \`title: \${yamlString(values.title)}\`)
-    .replace(\`# \${placeholders.title}\`, \`# \${escapeHtml(values.title)}\`)
+    .replace(`title: "${placeholders.title}"`, `title: ${yamlString(values.title)}`)
+    .replace(`# ${placeholders.title}`, `# ${escapeHtml(values.title)}`)
     .replace(placeholders.course, courseLine)
-    .replace(\`> **\${placeholders.presenter}**\`, \`> **\${escapeHtml(values.presenter)}**\`)
+    .replace(`> **${placeholders.presenter}**`, `> **${escapeHtml(values.presenter)}**`)
     .replaceAll(placeholders.presenter, escapeHtml(values.presenter))
     .replace(placeholders.organization, organizationLine)
-    .replace(\`> \${placeholders.date}\`, \`> \${escapeHtml(values.date)}\`)
+    .replace(`> ${placeholders.date}`, `> ${escapeHtml(values.date)}`)
     .replace(placeholders.footer, footerLine);
 }
 
