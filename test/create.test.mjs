@@ -158,8 +158,8 @@ test('CLI lets the user choose English and creates a project with matching docum
 
   const result = await runCli(workingDir, [], [
     'en',
-    'Campus Talk',
     'An Introduction',
+    'Campus Talk',
     'Databases',
     'Computer Science',
     '2026-10-26',
