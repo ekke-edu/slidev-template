@@ -13,6 +13,7 @@
     "layouts/",
     "public/assets/",
     "slides.md",
+    "slides.en.md",
     "vite.config.ts",
     "README.md",
     "README.hu.md",
