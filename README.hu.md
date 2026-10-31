@@ -26,7 +26,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-A felület alapértelmezés szerint magyarul indul; a nyelvet az első kérdésnél választhatod ki. Angol felületet parancsból is megadhatsz:
+A felület alapértelmezés szerint magyarul indul; a nyelvet az első kérdésnél választhatod ki. A választott nyelv a generált példadiák és helyőrzők nyelvét is meghatározza. Angol prezentációt parancsból is készíthetsz:
 
 ```sh
 npm create ekke-slides@latest -- --lang en --dir my-presentation
