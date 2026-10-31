@@ -181,7 +181,7 @@ test('CLI includes .gitignore in generated projects from the packed template fil
 
   for (const file of [
     '.github/workflows/deploy.yml', 'bin', 'layouts', 'public', 'template.gitignore', 'slides.md', 'vite.config.ts', 'README.md', 'README.hu.md',
-    'LICENSE', 'generator-pnpm-lock.yaml', 'package.json',
+    'LICENSE', 'generator-pnpm-lock.yaml', 'slides.en.md', 'package.json',
   ]) {
     const destination = join(installedPackage, file);
     await mkdir(dirname(destination), { recursive: true });
@@ -228,5 +228,5 @@ test('cover title and metadata stay in separate bounded areas', async () => {
   const cover = await readFile(join(root, 'layouts', 'ekke-cover.vue'), 'utf8');
   assert.match(cover, /max-height: 34%/);
   assert.match(cover, /max-height: 27%/);
-  assert.match(cover, /font-size: clamp\\(1\\.9rem, 5\\.2vw, 4rem\\)/);
+  assert.match(cover, /font-size: clamp\(1\.9rem, 5\.2vw, 4rem\)/);
 });
