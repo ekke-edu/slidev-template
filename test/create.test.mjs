@@ -221,7 +221,7 @@ test('English generation uses English slide content and personalizes every cover
   assert.match(slides, /# An Introduction/);
   assert.match(slides, /> Databases/);
   assert.match(slides, /> \*\*Campus Talk\*\*/);
-  assert.match(slides, /Computer Science · 2026-10-26/);
+  assert.match(slides, /Databases · Computer Science · 2026-10-26/);
   assert.doesNotMatch(slides, /Háttér és kiindulópont|A prezentáció címe|Előadó neve/);
 });
 
