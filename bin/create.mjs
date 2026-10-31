@@ -135,26 +135,42 @@ async function assertDestinationAvailable(targetDir, language) {
 }
 
 function personalizeSlides(slides, values) {
-  const courseLine = values.course
-    ? `> ${escapeHtml(values.course)}`
-    : '';
-  const organizationLine = values.organization
-    ? `> ${escapeHtml(values.organization)}`
-    : '';
-  const footerContext = values.course || values.organization;
+  const placeholders = values.language === 'en'
+    ? {
+      title: 'The presentation title',
+      course: '> [Course, subject, or event – optional]',
+      presenter: '[Presenter name]',
+      organization: '> [Degree programme / department / unit – optional]',
+      date: '[Date]',
+      footer: '[Course / department – optional] · [Date]',
+    }
+    : {
+      title: 'A prezentáció címe',
+      course: '> [Kurzus, tantárgy vagy alkalom – opcionális]',
+      presenter: '[Előadó neve]',
+      organization: '> [Szak / tanszék / szervezeti egység – opcionális]',
+      date: '[Dátum]',
+      footer: '[Kurzus / szervezeti egység – opcionális] · [Dátum]',
+    };
+  const courseLine = values.course ? `> ${escapeHtml(values.course)}` : '';
+  const organizationLine = values.organization ? `> ${escapeHtml(values.organization)}` : '';
+  const footerContext = [values.course, values.organization]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
   const footerLine = footerContext
-    ? `${escapeHtml(footerContext)} · ${escapeHtml(values.date)}`
+    ? `${footerContext} · ${escapeHtml(values.date)}`
     : escapeHtml(values.date);
 
   return slides
-    .replace('title: "A prezentáció címe"', `title: ${yamlString(values.title)}`)
-    .replace('# A prezentáció címe', `# ${escapeHtml(values.title)}`)
-    .replace('> [Kurzus, tantárgy vagy alkalom – opcionális]', courseLine)
-    .replace('> **[Előadó neve]**', `> **${escapeHtml(values.presenter)}**`)
-    .replaceAll('[Előadó neve]', escapeHtml(values.presenter))
-    .replace('> [Szak / tanszék / szervezeti egység – opcionális]', organizationLine)
-    .replace('> [Dátum]', `> ${escapeHtml(values.date)}`)
-    .replace('[Kurzus / szervezeti egység – opcionális] · [Dátum]', footerLine);
+    .replace(`title: "${placeholders.title}"`, `title: ${yamlString(values.title)}`)
+    .replace(`# ${placeholders.title}`, `# ${escapeHtml(values.title)}`)
+    .replace(placeholders.course, courseLine)
+    .replace(`> **${placeholders.presenter}**`, `> **${escapeHtml(values.presenter)}**`)
+    .replaceAll(placeholders.presenter, escapeHtml(values.presenter))
+    .replace(placeholders.organization, organizationLine)
+    .replace(`> ${placeholders.date}`, `> ${escapeHtml(values.date)}`)
+    .replace(placeholders.footer, footerLine);
 }
 
 async function createProject(folderInput, values) {
@@ -169,6 +185,7 @@ async function createProject(folderInput, values) {
     await mkdir(targetDir);
     created = true;
     for (const file of templateFiles) {
+      const sourceName = file === 'slides.md' && values.language === 'en' ? 'slides.en.md' : file;
       const targetName = file === 'template.gitignore'
         ? '.gitignore'
         : file === 'generator-pnpm-lock.yaml'
@@ -176,7 +193,7 @@ async function createProject(folderInput, values) {
           : file;
       const targetPath = join(targetDir, targetName);
       await mkdir(dirname(targetPath), { recursive: true });
-      await cp(join(packageDir, file), targetPath, { recursive: true, errorOnExist: true, force: false });
+      await cp(join(packageDir, sourceName), targetPath, { recursive: true, errorOnExist: true, force: false });
     }
 
     const chosenReadme = values.language === 'hu' ? 'README.hu.md' : 'README.md';

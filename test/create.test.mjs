@@ -158,8 +158,9 @@ test('CLI lets the user choose English and creates a project with matching docum
 
   const result = await runCli(workingDir, [], [
     'en',
-    'Campus Talk',
+    'campus-talk',
     'An Introduction',
+    'Campus Talk',
     'Databases',
     'Computer Science',
     '2026-10-26',
@@ -181,7 +182,7 @@ test('CLI includes .gitignore in generated projects from the packed template fil
 
   for (const file of [
     '.github/workflows/deploy.yml', 'bin', 'layouts', 'public', 'template.gitignore', 'slides.md', 'vite.config.ts', 'README.md', 'README.hu.md',
-    'LICENSE', 'generator-pnpm-lock.yaml', 'package.json',
+    'LICENSE', 'generator-pnpm-lock.yaml', 'slides.en.md', 'package.json',
   ]) {
     const destination = join(installedPackage, file);
     await mkdir(dirname(destination), { recursive: true });
@@ -200,4 +201,33 @@ test('CLI includes .gitignore in generated projects from the packed template fil
   assert.equal(result.status, 0, result.stdout + result.stderr);
   assert.equal(await readFile(join(workingDir, 'npm-installed-demo', '.gitignore'), 'utf8'),
     await readFile(join(root, 'template.gitignore'), 'utf8'));
+});
+
+test('English generation uses English slide content and personalizes every cover field', async (t) => {
+  const workingDir = await mkdtemp(join(tmpdir(), 'create-ekke-slides-english-content-'));
+  t.after(() => rm(workingDir, { recursive: true, force: true }));
+
+  const result = await runCli(workingDir, ['--lang', 'en', '--dir', 'english-deck'], [
+    'An Introduction',
+    'Campus Talk',
+    'Databases',
+    'Computer Science',
+    '2026-10-26',
+  ]);
+
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  const slides = await readFile(join(workingDir, 'english-deck', 'slides.md'), 'utf8');
+  assert.match(slides, /Background and context/);
+  assert.match(slides, /# An Introduction/);
+  assert.match(slides, /> Databases/);
+  assert.match(slides, /> \*\*Campus Talk\*\*/);
+  assert.match(slides, /Databases · Computer Science · 2026-10-26/);
+  assert.doesNotMatch(slides, /Háttér és kiindulópont|A prezentáció címe|Előadó neve/);
+});
+
+test('cover title and metadata stay in separate bounded areas', async () => {
+  const cover = await readFile(join(root, 'layouts', 'ekke-cover.vue'), 'utf8');
+  assert.match(cover, /max-height: 34%/);
+  assert.match(cover, /max-height: 27%/);
+  assert.match(cover, /font-size: clamp\(1\.9rem, 5\.2vw, 4rem\)/);
 });
