@@ -158,6 +158,7 @@ test('CLI lets the user choose English and creates a project with matching docum
 
   const result = await runCli(workingDir, [], [
     'en',
+    'campus-talk',
     'An Introduction',
     'Campus Talk',
     'Databases',
@@ -207,8 +208,8 @@ test('English generation uses English slide content and personalizes every cover
   t.after(() => rm(workingDir, { recursive: true, force: true }));
 
   const result = await runCli(workingDir, ['--lang', 'en', '--dir', 'english-deck'], [
-    'Campus Talk',
     'An Introduction',
+    'Campus Talk',
     'Databases',
     'Computer Science',
     '2026-10-26',
