@@ -26,7 +26,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The CLI prompts in Hungarian by default. Choose English at the language prompt, or set it directly:
+The CLI prompts in Hungarian by default. Choose English at the language prompt, or set it directly. The selected language also chooses the generated example slides and placeholders:
 
 ```sh
 npm create ekke-slides@latest -- --lang en --dir my-presentation
