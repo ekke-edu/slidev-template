@@ -154,9 +154,12 @@ function personalizeSlides(slides, values) {
     };
   const courseLine = values.course ? `> ${escapeHtml(values.course)}` : '';
   const organizationLine = values.organization ? `> ${escapeHtml(values.organization)}` : '';
-  const footerContext = values.course || values.organization;
+  const footerContext = [values.course, values.organization]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
   const footerLine = footerContext
-    ? `${escapeHtml(footerContext)} · ${escapeHtml(values.date)}`
+    ? `${footerContext} · ${escapeHtml(values.date)}`
     : escapeHtml(values.date);
 
   return slides
