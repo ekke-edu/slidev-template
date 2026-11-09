@@ -46,7 +46,7 @@
     "release:major": "pnpm version major --tag-version-prefix \"\" --message \"chore(release): v%s\""
   },
   "devDependencies": {
-    "@slidev/cli": "53.0.0",
+    "@slidev/cli": "53.1.0",
     "@slidev/theme-default": "0.25.0"
   }
 }
